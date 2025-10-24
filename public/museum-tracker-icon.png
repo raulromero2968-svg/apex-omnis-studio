@@ -1,0 +1,5 @@
+// BEFORE:
+📊
+
+// AFTER:
+<img src="/museum-tracker-icon.png" alt="Museum Tracker" className="w-16 h-16" />
