@@ -426,7 +426,7 @@
   opacity: 1;
 }
 
-..portfolio-image {
+.portfolio-image {
   height: 14rem;
   display: flex;
   align-items: center;
