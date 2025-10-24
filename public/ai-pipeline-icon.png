@@ -1,0 +1,5 @@
+// BEFORE:
+🤖
+
+// AFTER:
+<img src="/ai-pipeline-icon.png" alt="AI Pipeline" className="w-16 h-16" />
