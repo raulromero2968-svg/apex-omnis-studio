@@ -34,7 +34,7 @@ function App() {
             <div className="nav-links">
               <a href="#services">Services</a>
               <a href="#portfolio">Portfolio</a>
-              <a href="#pricing">Pricing</a>
+
               <a href="#contact" className="btn-primary">
                 Book Consultation
               </a>
@@ -186,50 +186,6 @@ function App() {
         </div>
       </section>
 
-      {/* Pricing Section */}
-      <section id="pricing" className="section section-alt">
-        <div className="container">
-          <div className="section-header">
-            <h2 className="section-title">Simple, Transparent Pricing</h2>
-            <p className="section-subtitle">No hidden fees. No surprises.</p>
-          </div>
-
-          <div className="pricing-grid">
-            <div className="pricing-card">
-              <h3 className="pricing-name">Project-Based</h3>
-              <div className="pricing-price" style={{color: 'var(--primary)'}}>
-                Starting at $1,200
-              </div>
-              <ul className="pricing-features">
-                <li>✓ Fixed scope & timeline</li>
-                <li>✓ Detailed project plan</li>
-                <li>✓ 2 weeks of support</li>
-                <li>✓ Documentation included</li>
-              </ul>
-              <a href="#contact" className="btn-primary btn-block">
-                Get Started
-              </a>
-            </div>
-
-            <div className="pricing-card pricing-card-featured">
-              <div className="pricing-badge">Popular</div>
-              <h3 className="pricing-name">Ongoing Support</h3>
-              <div className="pricing-price" style={{color: 'var(--accent)'}}>
-                $3,000/week
-              </div>
-              <ul className="pricing-features">
-                <li>✓ 40 hours/week dedicated</li>
-                <li>✓ Flexible scope</li>
-                <li>✓ Priority support</li>
-                <li>✓ Weekly progress reports</li>
-              </ul>
-              <a href="#contact" className="btn-accent btn-block">
-                Book Consultation
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* Contact Section */}
       <section id="contact" className="section">
