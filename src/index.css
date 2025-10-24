@@ -1,0 +1,65 @@
+:root {
+  --background: rgb(10, 10, 10);
+  --foreground: rgb(255, 255, 255);
+  --primary: rgb(0, 180, 216);
+  --accent: rgb(0, 245, 255);
+  --accent-purple: rgb(123, 44, 191);
+  --gray-800: rgb(31, 41, 55);
+  --gray-700: rgb(55, 65, 81);
+  --gray-600: rgb(75, 85, 99);
+  --gray-500: rgb(107, 114, 128);
+  --gray-400: rgb(156, 163, 175);
+  --gray-300: rgb(209, 213, 219);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  line-height: 1.5;
+}
+
+.text-gradient {
+  background: linear-gradient(135deg, 
+    #00F5FF 0%,
+    #00B4D8 25%,
+    #7B2CBF 50%,
+    #00B4D8 75%,
+    #00F5FF 100%
+  );
+  background-size: 200% auto;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: holographic 3s linear infinite;
+}
+
+@keyframes holographic {
+  0% {
+    background-position: 0% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+input, textarea {
+  font-family: inherit;
+}
+
