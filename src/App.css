@@ -462,6 +462,19 @@
   font-size: 4rem;
 }
 
+.portfolio-icon {
+  width: 120px;
+  height: 120px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 20px rgba(0, 180, 216, 0.3));
+  transition: all 0.3s ease;
+}
+
+.portfolio-card:hover .portfolio-icon {
+  transform: scale(1.1);
+  filter: drop-shadow(0 0 30px rgba(0, 180, 216, 0.5));
+}
+
 .portfolio-content {
   padding: 1.5rem;
 }

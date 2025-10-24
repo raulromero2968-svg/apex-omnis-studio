@@ -137,7 +137,7 @@ function App() {
           <div className="portfolio-grid">
             <div className="portfolio-card">
               <div className="portfolio-image portfolio-image-1">
-                <div className="portfolio-emoji">📊</div>
+                <img src="/museum-tracker-icon.png" alt="Museum Tracker" className="portfolio-icon" />
               </div>
               <div className="portfolio-content">
                 <h3 className="portfolio-title">Museum Tracker System</h3>
@@ -153,7 +153,7 @@ function App() {
 
             <div className="portfolio-card">
               <div className="portfolio-image portfolio-image-2">
-                <div className="portfolio-emoji">🤖</div>
+                <img src="/ai-pipeline-icon.png" alt="AI Pipeline" className="portfolio-icon" />
               </div>
               <div className="portfolio-content">
                 <h3 className="portfolio-title">AI Content Pipeline</h3>
@@ -169,7 +169,7 @@ function App() {
 
             <div className="portfolio-card">
               <div className="portfolio-image portfolio-image-3">
-                <div className="portfolio-emoji">📈</div>
+                <img src="/data-dashboard-icon.png" alt="Data Dashboard" className="portfolio-icon" />
               </div>
               <div className="portfolio-content">
                 <h3 className="portfolio-title">Data Analysis Dashboard</h3>
