@@ -1,0 +1,5 @@
+// BEFORE:
+📈
+
+// AFTER:
+<img src="/data-dashboard-icon.png" alt="Data Dashboard" className="w-16 h-16" />
