@@ -41,13 +41,13 @@ export async function getPortfolioProjects(): Promise<PortfolioProject[]> {
       const properties = page.properties;
 
       // Extract title
-      const title = properties.Title?.title?.[0]?.plain_text || 'Untitled Project';
+      const title = properties['Project Name']?.title?.[0]?.plain_text || 'Untitled Project';
 
       // Extract description
       const description = properties.Description?.rich_text?.[0]?.plain_text || '';
 
       // Extract tags (multi-select)
-      const tags = properties.Tags?.multi_select?.map((tag: any) => tag.name) || [];
+      const tags = properties.Category?.multi_select?.map((tag: any) => tag.name) || [];
 
       // Extract image URL
       const imageUrl = properties['Image URL']?.url || '';
