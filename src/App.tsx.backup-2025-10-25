@@ -1,11 +1,10 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import './index.css'
 import './App.css'
 import { Starfield } from './Starfield'
 import { DiamondLogo } from './DiamondLogo'
 import { CustomCursor } from './CustomCursor'
 import { NotionIcon, ZapierIcon, AIIcon, FullStackIcon } from './ServiceIcons'
-import { getPortfolioProjects, type PortfolioProject } from './lib/notion'
 
 function App() {
   const [formData, setFormData] = useState({
@@ -13,27 +12,6 @@ function App() {
     email: '',
     message: ''
   })
-
-  const [portfolioProjects, setPortfolioProjects] = useState<PortfolioProject[]>([])
-  const [portfolioLoading, setPortfolioLoading] = useState(true)
-  const [portfolioError, setPortfolioError] = useState<string | null>(null)
-
-  useEffect(() => {async function fetchProjects() {
-      try {
-        setPortfolioLoading(true)
-        const projects = await getPortfolioProjects()
-        setPortfolioProjects(projects)
-        setPortfolioError(null)
-      } catch (error) {
-        console.error('Failed to load portfolio projects:', error)
-        setPortfolioError('Failed to load portfolio projects. Please try again later.')
-      } finally {
-        setPortfolioLoading(false)
-      }
-    }
-
-    fetchProjects()
-  }, [])
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -156,71 +134,55 @@ function App() {
             <p className="section-subtitle">Real results for real businesses</p>
           </div>
 
-          {portfolioLoading && (
-            <div style={{ textAlign: 'center', padding: '3rem 0', color: '#888' }}>
-              <p style={{ fontSize: '1.125rem' }}>Loading portfolio projects...</p>
-            </div>
-          )}
-
-          {portfolioError && (
-            <div style={{ textAlign: 'center', padding: '3rem 0', color: '#ff6b6b' }}>
-              <p style={{ fontSize: '1.125rem' }}>{portfolioError}</p>
-            </div>
-          )}
-
-          {!portfolioLoading && !portfolioError && portfolioProjects.length === 0 && (
-            <div style={{ textAlign: 'center', padding: '3rem 0', color: '#888' }}>
-              <p style={{ fontSize: '1.125rem' }}>No portfolio projects found.</p>
-            </div>
-          )}
-
-          {!portfolioLoading && !portfolioError && portfolioProjects.length > 0 && (
-            <div className="portfolio-grid">
-              {portfolioProjects.map((project, index) => (
-                <div key={project.id} className="portfolio-card">
-                  <div className={`portfolio-image portfolio-image-${(index % 3) + 1}`}>
-                    {project.imageUrl && (
-                      <img 
-                        src={project.imageUrl} 
-                        alt={project.title} 
-                        className="portfolio-icon" 
-                      />
-                    )}
-                  </div>
-                  <div className="portfolio-content">
-                    <h3 className="portfolio-title">{project.title}</h3>
-                    <p className="portfolio-desc">{project.description}</p>
-                    <div className="portfolio-tags">
-                      {project.tags.map((tag) => (
-                        <span 
-                          key={tag} 
-                          className={`tag ${
-                            tag.toLowerCase().includes('notion') ? 'tag-primary' :
-                            tag.toLowerCase().includes('zapier') ? 'tag-accent' :
-                            tag.toLowerCase().includes('ai') ? 'tag-purple' :
-                            'tag-primary'
-                          }`}
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                    {project.projectUrl && (
-                      <a 
-                        href={project.projectUrl} 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        className="btn-secondary"
-                        style={{ marginTop: '1rem', display: 'inline-block' }}
-                      >
-                        View Project →
-                      </a>
-                    )}
-                  </div>
+          <div className="portfolio-grid">
+            <div className="portfolio-card">
+              <div className="portfolio-image portfolio-image-1">
+                <img src="/museum-tracker-icon.png" alt="Museum Tracker" className="portfolio-icon" />
+              </div>
+              <div className="portfolio-content">
+                <h3 className="portfolio-title">Museum Tracker System</h3>
+                <p className="portfolio-desc">
+                  Automated NYC museum event tracking with Notion + Zapier. Saves 5 hours/week.
+                </p>
+                <div className="portfolio-tags">
+                  <span className="tag tag-primary">Notion</span>
+                  <span className="tag tag-accent">Zapier</span>
                 </div>
-              ))}
+              </div>
             </div>
-          )}
+
+            <div className="portfolio-card">
+              <div className="portfolio-image portfolio-image-2">
+                <img src="/ai-pipeline-icon.png" alt="AI Pipeline" className="portfolio-icon" />
+              </div>
+              <div className="portfolio-content">
+                <h3 className="portfolio-title">AI Content Pipeline</h3>
+                <p className="portfolio-desc">
+                  Automated content analysis and categorization using Claude AI + Google Sheets.
+                </p>
+                <div className="portfolio-tags">
+                  <span className="tag tag-purple">AI</span>
+                  <span className="tag tag-accent">Zapier</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="portfolio-card">
+              <div className="portfolio-image portfolio-image-3">
+                <img src="/data-dashboard-icon.png" alt="Data Dashboard" className="portfolio-icon" />
+              </div>
+              <div className="portfolio-content">
+                <h3 className="portfolio-title">Data Analysis Dashboard</h3>
+                <p className="portfolio-desc">
+                  React dashboard with real-time analytics and automated reporting.
+                </p>
+                <div className="portfolio-tags">
+                  <span className="tag tag-primary">React</span>
+                  <span className="tag tag-purple">TypeScript</span>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
