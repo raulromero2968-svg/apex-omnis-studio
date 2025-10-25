@@ -1,6 +1,9 @@
 // Vercel Serverless Function for Notion Portfolio API
+// Using CommonJS syntax for better Vercel compatibility
 
-export default async function handler(req, res) {
+const { Client } = require('@notionhq/client');
+
+module.exports = async function handler(req, res) {
   // Enable CORS
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
@@ -17,30 +20,26 @@ export default async function handler(req, res) {
   }
 
   try {
-    // Dynamic import of Notion client (works better in serverless)
-    const { Client } = await import('@notionhq/client');
-    
-    console.log('Notion Client imported successfully');
-    console.log('Client type:', typeof Client);
-    console.log('Client constructor:', Client.toString().substring(0, 100));
+    console.log('Initializing Notion client...');
+    console.log('Environment check - NOTION_API_KEY exists:', !!process.env.NOTION_API_KEY);
+    console.log('Environment check - NOTION_DATABASE_ID exists:', !!process.env.NOTION_DATABASE_ID);
 
     // Initialize Notion client
     const notion = new Client({
-      auth: process.env.NOTION_API_KEY || process.env.VITE_NOTION_API_KEY,
+      auth: process.env.NOTION_API_KEY,
     });
 
-    console.log('Notion client initialized');
-    console.log('notion type:', typeof notion);
-    console.log('notion.databases type:', typeof notion.databases);
-    console.log('notion.databases.query type:', typeof notion.databases?.query);
-
-    const databaseId = process.env.NOTION_DATABASE_ID || process.env.VITE_NOTION_DATABASE_ID;
+    const databaseId = process.env.NOTION_DATABASE_ID;
 
     if (!databaseId) {
-      throw new Error('Notion database ID is not configured');
+      throw new Error('NOTION_DATABASE_ID environment variable is not set');
     }
 
-    console.log('Fetching from Notion database:', databaseId);
+    if (!process.env.NOTION_API_KEY) {
+      throw new Error('NOTION_API_KEY environment variable is not set');
+    }
+
+    console.log('Querying Notion database:', databaseId.substring(0, 8) + '...');
 
     // Query Notion database
     const response = await notion.databases.query({
@@ -53,7 +52,7 @@ export default async function handler(req, res) {
       },
     });
 
-    console.log('Notion API response:', response.results.length, 'projects found');
+    console.log('Notion API response received:', response.results.length, 'projects found');
 
     // Transform Notion data to portfolio projects
     const projects = response.results.map((page) => {
@@ -88,21 +87,19 @@ export default async function handler(req, res) {
       };
     });
 
-    console.log('Transformed projects:', projects);
+    console.log('Successfully transformed', projects.length, 'projects');
 
     res.status(200).json({ projects });
   } catch (error) {
-    console.error('Error fetching portfolio projects from Notion:', error);
+    console.error('Error fetching portfolio projects from Notion:');
     console.error('Error name:', error.name);
     console.error('Error message:', error.message);
-    console.error('Error stack:', error.stack);
+    console.error('Error code:', error.code);
     
     res.status(500).json({ 
       error: 'Failed to fetch portfolio projects',
       message: error.message,
-      name: error.name,
-      stack: process.env.NODE_ENV === 'development' ? error.stack : undefined
+      details: process.env.NODE_ENV === 'development' ? error.stack : 'Check server logs for details'
     });
   }
-}
-
+};
