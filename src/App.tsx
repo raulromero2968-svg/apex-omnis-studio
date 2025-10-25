@@ -6,6 +6,7 @@ import { Starfield } from './Starfield'
 import { DiamondLogo } from './DiamondLogo'
 import { CustomCursor } from './CustomCursor'
 import { NotionIcon, ZapierIcon, AIIcon, FullStackIcon } from './ServiceIcons'
+import { getPortfolioProjects, type PortfolioProject } from './lib/notion'
 
 function App() {
   const [portfolioProjects, setPortfolioProjects] = useState<PortfolioProject[]>([]);
@@ -25,6 +26,27 @@ function App() {
     message: ''
   })
 
+  const [portfolioProjects, setPortfolioProjects] = useState<PortfolioProject[]>([])
+  const [portfolioLoading, setPortfolioLoading] = useState(true)
+  const [portfolioError, setPortfolioError] = useState<string | null>(null)
+
+  useEffect(() => {async function fetchProjects() {
+      try {
+        setPortfolioLoading(true)
+        const projects = await getPortfolioProjects()
+        setPortfolioProjects(projects)
+        setPortfolioError(null)
+      } catch (error) {
+        console.error('Failed to load portfolio projects:', error)
+        setPortfolioError('Failed to load portfolio projects. Please try again later.')
+      } finally {
+        setPortfolioLoading(false)
+      }
+    }
+
+    fetchProjects()
+  }, [])
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     console.log('Form submitted:', formData)
@@ -37,6 +59,7 @@ function App() {
       
       {/* Navigation */}
       <nav className="nav">
+<<<<<<< HEAD
         <div className="container nav-container">
           <div className="logo">
             <DiamondLogo />
@@ -46,6 +69,22 @@ function App() {
             <a href="#services">Services</a>
             <a href="#portfolio">Portfolio</a>
             <a href="#contact" className="btn-primary">Get Started</a>
+=======
+        <div className="container">
+          <div className="nav-content">
+            <div className="logo">
+              <DiamondLogo />
+              <span className="text-gradient">Apex Omnis Studio</span>
+            </div>
+            <div className="nav-links">
+              <a href="#services">Services</a>
+              <a href="#portfolio">Portfolio</a>
+
+              <a href="#contact" className="btn-primary">
+                Book Consultation
+              </a>
+            </div>
+>>>>>>> 945d3d3c448fc56a61b71370b772a2c99d20ed73
           </div>
         </div>
       </nav>
@@ -162,6 +201,7 @@ function App() {
             <p className="section-subtitle">Real results for real businesses</p>
           </div>
 
+<<<<<<< HEAD
           <div className="portfolio-grid">
             {loading ? (
               <div style={{ gridColumn: '1 / -1', textAlign: 'center', padding: '3rem' }}>
@@ -212,6 +252,76 @@ function App() {
           </div>
         </div>
       </section>
+=======
+          {portfolioLoading && (
+            <div style={{ textAlign: 'center', padding: '3rem 0', color: '#888' }}>
+              <p style={{ fontSize: '1.125rem' }}>Loading portfolio projects...</p>
+            </div>
+          )}
+
+          {portfolioError && (
+            <div style={{ textAlign: 'center', padding: '3rem 0', color: '#ff6b6b' }}>
+              <p style={{ fontSize: '1.125rem' }}>{portfolioError}</p>
+            </div>
+          )}
+
+          {!portfolioLoading && !portfolioError && portfolioProjects.length === 0 && (
+            <div style={{ textAlign: 'center', padding: '3rem 0', color: '#888' }}>
+              <p style={{ fontSize: '1.125rem' }}>No portfolio projects found.</p>
+            </div>
+          )}
+
+          {!portfolioLoading && !portfolioError && portfolioProjects.length > 0 && (
+            <div className="portfolio-grid">
+              {portfolioProjects.map((project, index) => (
+                <div key={project.id} className="portfolio-card">
+                  <div className={`portfolio-image portfolio-image-${(index % 3) + 1}`}>
+                    {project.imageUrl && (
+                      <img 
+                        src={project.imageUrl} 
+                        alt={project.title} 
+                        className="portfolio-icon" 
+                      />
+                    )}
+                  </div>
+                  <div className="portfolio-content">
+                    <h3 className="portfolio-title">{project.title}</h3>
+                    <p className="portfolio-desc">{project.description}</p>
+                    <div className="portfolio-tags">
+                      {project.tags.map((tag) => (
+                        <span 
+                          key={tag} 
+                          className={`tag ${
+                            tag.toLowerCase().includes('notion') ? 'tag-primary' :
+                            tag.toLowerCase().includes('zapier') ? 'tag-accent' :
+                            tag.toLowerCase().includes('ai') ? 'tag-purple' :
+                            'tag-primary'
+                          }`}
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                    {project.projectUrl && (
+                      <a 
+                        href={project.projectUrl} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="btn-secondary"
+                        style={{ marginTop: '1rem', display: 'inline-block' }}
+                      >
+                        View Project →
+                      </a>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </section>
+
+>>>>>>> 945d3d3c448fc56a61b71370b772a2c99d20ed73
 
       {/* Contact Section */}
       <section id="contact" className="section">
