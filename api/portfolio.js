@@ -1,7 +1,7 @@
 // Vercel Serverless Function for Notion Portfolio API
-const { Client } = require('@notionhq/client');
+import { Client } from '@notionhq/client';
 
-module.exports = async (req, res) => {
+export default async function handler(req, res) {
   // Enable CORS
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
@@ -88,5 +88,5 @@ module.exports = async (req, res) => {
       stack: process.env.NODE_ENV === 'development' ? error.stack : undefined
     });
   }
-};
+}
 
