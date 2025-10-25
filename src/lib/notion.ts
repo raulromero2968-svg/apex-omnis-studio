@@ -27,3 +27,4 @@ export async function getPortfolioProjects(): Promise<PortfolioProject[]> {
     throw error;
   }
 }
+
