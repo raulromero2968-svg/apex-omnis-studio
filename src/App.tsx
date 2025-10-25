@@ -53,7 +53,7 @@ function App() {
           <div className="nav-links">
             <a href="#services">Services</a>
             <a href="#portfolio">Portfolio</a>
-            <a href="#contact" className="btn-primary">Book Consultation</a>
+            <a href="#contact" className="btn-primary">Get Started</a>
           </div>
         </div>
       </nav>
@@ -62,48 +62,48 @@ function App() {
       <section className="hero">
         <div className="container">
           <h1 className="hero-title">
-            Enterprise-Grade Automation <span className="gradient-text">For Modern Teams</span>
+            Keep Your Business <span className="gradient-text">In Your Control</span>
           </h1>
           <p className="hero-subtitle">
-            I build custom automation workflows that save you 10+ hours per week. Notion databases, Zapier integrations, AI-powered tools, and full-stack applications—delivered with precision.
+            I help small businesses protect their operations from AI disruption by integrating and optimizing their systems. Stay competitive, stay efficient, and stay in control.
           </p>
           <div className="hero-cta">
-            <a href="#contact" className="btn-primary btn-large">Book Free 15-Min Consultation</a>
-            <a href="#portfolio" className="btn-secondary btn-large">View Portfolio</a>
+            <a href="#contact" className="btn-primary btn-large">Book Free Consultation</a>
+            <a href="#portfolio" className="btn-secondary btn-large">View My Work</a>
           </div>
-          <p className="hero-trust">Trusted by agencies, freelancers, and growing teams</p>
+          <p className="hero-trust">Helping small businesses thrive in the AI era</p>
         </div>
       </section>
 
       {/* Services Section */}
       <section id="services" className="services">
         <div className="container">
-          <h2 className="section-title">What I Build</h2>
-          <p className="section-subtitle">Custom solutions tailored to your workflow</p>
+          <h2 className="section-title">How I Help You Stay Ahead</h2>
+          <p className="section-subtitle">One-time projects + optional tune-ups. No ongoing retainers.</p>
           
           <div className="services-grid">
             <div className="service-card">
               <NotionIcon />
-              <h3>Notion Automation</h3>
-              <p>Custom databases, dashboards, and automated workflows that turn Notion into your command center.</p>
+              <h3>Notion Workspace Setup</h3>
+              <p>Transform Notion into your business command center. Custom databases, automated workflows, and dashboards that save you hours every week.</p>
             </div>
 
             <div className="service-card">
               <ZapierIcon />
-              <h3>Zapier Integration</h3>
-              <p>Connect your tools seamlessly. From simple triggers to complex multi-step workflows.</p>
+              <h3>Workflow Automation</h3>
+              <p>Connect your tools and eliminate repetitive tasks. From simple triggers to complex multi-step workflows that run on autopilot.</p>
             </div>
 
             <div className="service-card">
               <AIIcon />
-              <h3>AI Workflows</h3>
-              <p>Leverage GPT-4, Claude, and custom AI models to automate content, analysis, and decision-making.</p>
+              <h3>System Integration</h3>
+              <p>Make your business tools work together seamlessly. CRM, email, project management, invoicing—all connected and optimized.</p>
             </div>
 
             <div className="service-card">
               <FullStackIcon />
-              <h3>Full-Stack Development</h3>
-              <p>React, Node.js, TypeScript, Supabase. Modern web apps built for performance and scalability.</p>
+              <h3>Custom Solutions</h3>
+              <p>Need something specific? I build custom tools and applications tailored to your unique business needs.</p>
             </div>
           </div>
         </div>
@@ -113,7 +113,7 @@ function App() {
       <section id="portfolio" className="portfolio">
         <div className="container">
           <h2 className="section-title">Recent Projects</h2>
-          <p className="section-subtitle">Real results for real businesses</p>
+          <p className="section-subtitle">Real solutions for real businesses</p>
           
           <div className="portfolio-grid">
             {portfolioLoading ? (
@@ -168,8 +168,8 @@ function App() {
       {/* Contact Section */}
       <section id="contact" className="contact">
         <div className="container">
-          <h2 className="section-title">Let's Work Together</h2>
-          <p className="section-subtitle">Book a free 15-minute consultation to discuss your project</p>
+          <h2 className="section-title">Ready to Take Control?</h2>
+          <p className="section-subtitle">Book a free consultation to discuss how I can help your business</p>
           
           <form className="contact-form" onSubmit={handleSubmit}>
             <div className="form-group">
@@ -195,12 +195,13 @@ function App() {
             </div>
 
             <div className="form-group">
-              <label htmlFor="message">Project Details</label>
+              <label htmlFor="message">Tell me about your business</label>
               <textarea
                 id="message"
                 rows={5}
                 value={formData.message}
                 onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                placeholder="What challenges are you facing? What would you like to automate or optimize?"
                 required
               />
             </div>
@@ -213,7 +214,7 @@ function App() {
       {/* Footer */}
       <footer className="footer">
         <div className="container">
-          <p>&copy; 2024 Apex Omnis Studio. All rights reserved.</p>
+          <p>&copy; 2025 Apex Omnis Studio. Helping small businesses stay in control.</p>
         </div>
       </footer>
     </div>
