@@ -59,7 +59,7 @@ function App() {
       
       {/* Navigation */}
       <nav className="nav">
-<<<<<<< HEAD
+ HEAD
         <div className="container nav-container">
           <div className="logo">
             <DiamondLogo />
@@ -69,7 +69,7 @@ function App() {
             <a href="#services">Services</a>
             <a href="#portfolio">Portfolio</a>
             <a href="#contact" className="btn-primary">Get Started</a>
-=======
+
         <div className="container">
           <div className="nav-content">
             <div className="logo">
@@ -84,7 +84,7 @@ function App() {
                 Book Consultation
               </a>
             </div>
->>>>>>> 945d3d3c448fc56a61b71370b772a2c99d20ed73
+ 945d3d3c448fc56a61b71370b772a2c99d20ed73
           </div>
         </div>
       </nav>
@@ -201,7 +201,7 @@ function App() {
             <p className="section-subtitle">Real results for real businesses</p>
           </div>
 
-<<<<<<< HEAD
+ HEAD
           <div className="portfolio-grid">
             {loading ? (
               <div style={{ gridColumn: '1 / -1', textAlign: 'center', padding: '3rem' }}>
@@ -252,7 +252,7 @@ function App() {
           </div>
         </div>
       </section>
-=======
+
           {portfolioLoading && (
             <div style={{ textAlign: 'center', padding: '3rem 0', color: '#888' }}>
               <p style={{ fontSize: '1.125rem' }}>Loading portfolio projects...</p>
@@ -321,7 +321,7 @@ function App() {
         </div>
       </section>
 
->>>>>>> 945d3d3c448fc56a61b71370b772a2c99d20ed73
+ 945d3d3c448fc56a61b71370b772a2c99d20ed73
 
       {/* Contact Section */}
       <section id="contact" className="section">
