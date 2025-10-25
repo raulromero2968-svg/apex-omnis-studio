@@ -1,5 +1,4 @@
 // Vercel Serverless Function for Notion Portfolio API
-import { Client } from '@notionhq/client';
 
 export default async function handler(req, res) {
   // Enable CORS
@@ -18,10 +17,22 @@ export default async function handler(req, res) {
   }
 
   try {
+    // Dynamic import of Notion client (works better in serverless)
+    const { Client } = await import('@notionhq/client');
+    
+    console.log('Notion Client imported successfully');
+    console.log('Client type:', typeof Client);
+    console.log('Client constructor:', Client.toString().substring(0, 100));
+
     // Initialize Notion client
     const notion = new Client({
       auth: process.env.NOTION_API_KEY || process.env.VITE_NOTION_API_KEY,
     });
+
+    console.log('Notion client initialized');
+    console.log('notion type:', typeof notion);
+    console.log('notion.databases type:', typeof notion.databases);
+    console.log('notion.databases.query type:', typeof notion.databases?.query);
 
     const databaseId = process.env.NOTION_DATABASE_ID || process.env.VITE_NOTION_DATABASE_ID;
 
@@ -82,9 +93,14 @@ export default async function handler(req, res) {
     res.status(200).json({ projects });
   } catch (error) {
     console.error('Error fetching portfolio projects from Notion:', error);
+    console.error('Error name:', error.name);
+    console.error('Error message:', error.message);
+    console.error('Error stack:', error.stack);
+    
     res.status(500).json({ 
       error: 'Failed to fetch portfolio projects',
       message: error.message,
+      name: error.name,
       stack: process.env.NODE_ENV === 'development' ? error.stack : undefined
     });
   }
