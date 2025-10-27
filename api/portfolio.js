@@ -58,6 +58,9 @@ module.exports = async function handler(req, res) {
     const projects = response.results.map((page) => {
       const properties = page.properties;
 
+      // Log all available properties for debugging
+      console.log('Available properties:', Object.keys(properties));
+
       // Extract title (using "Project Name" as per your database)
       const title = properties['Project Name']?.title?.[0]?.plain_text || 'Untitled Project';
 
@@ -67,15 +70,22 @@ module.exports = async function handler(req, res) {
       // Extract category (using "Category" instead of "Tags")
       const tags = properties.Category?.multi_select?.map((tag) => tag.name) || [];
 
-      // Extract image URL from Screenshot property (Files & media type)
+      // Extract image URL from Screenshots property (Files & media type)
+      // Using safe optional chaining to avoid errors
       let imageUrl = '';
-      if (properties.Screenshots?.files && properties.Screenshots.files.length > 0) {
-        const file = properties.Screenshot.files[0];
-        // Check if it's an external file or uploaded file
-        if (file.type === 'external') {
-          imageUrl = file.external?.url || '';
-        } else if (file.type === 'file') {
-          imageUrl = file.file?.url || '';
+      
+      // Log the Screenshots property structure for debugging
+      console.log('Screenshots property for', title, ':', JSON.stringify(properties.Screenshots));
+      
+      if (properties.Screenshots && properties.Screenshots.files && Array.isArray(properties.Screenshots.files)) {
+        if (properties.Screenshots.files.length > 0) {
+          const file = properties.Screenshots.files[0];
+          // Check if it's an external file or uploaded file
+          if (file.type === 'external') {
+            imageUrl = file.external?.url || '';
+          } else if (file.type === 'file') {
+            imageUrl = file.file?.url || '';
+          }
         }
       }
 
@@ -89,6 +99,8 @@ module.exports = async function handler(req, res) {
 
       // Extract featured status
       const featured = properties.Featured?.checkbox || false;
+
+      console.log('Project:', title, 'Image URL:', imageUrl);
 
       return {
         id: page.id,
@@ -109,6 +121,7 @@ module.exports = async function handler(req, res) {
     console.error('Error name:', error.name);
     console.error('Error message:', error.message);
     console.error('Error code:', error.code);
+    console.error('Full error:', error);
 
     res.status(500).json({
       error: 'Failed to fetch portfolio projects',
