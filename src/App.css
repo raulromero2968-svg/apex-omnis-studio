@@ -664,4 +664,30 @@
   color: var(--gray-600);
   padding-top: 2rem;
 }
+/* Portfolio Card Hover Effects */
+.portfolio-card {
+  transition: all 0.3s ease;
+}
+
+.portfolio-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(6, 182, 212, 0.3);
+}
+
+.portfolio-card img {
+  transition: transform 0.3s ease;
+}
+
+.portfolio-card:hover img {
+  transform: scale(1.05);
+}
+
+/* Project Detail Page Styles */
+.project-detail-image {
+  transition: transform 0.3s ease;
+}
+
+.project-detail-image:hover {
+  transform: scale(1.02);
+}
 
