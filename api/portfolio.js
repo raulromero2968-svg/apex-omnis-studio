@@ -69,7 +69,7 @@ module.exports = async function handler(req, res) {
 
       // Extract image URL from Screenshot property (Files & media type)
       let imageUrl = '';
-      if (properties.Screenshot?.files && properties.Screenshot.files.length > 0) {
+      if (properties.Screenshots?.files && properties.Screenshots.files.length > 0) {
         const file = properties.Screenshot.files[0];
         // Check if it's an external file or uploaded file
         if (file.type === 'external') {
