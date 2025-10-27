@@ -67,8 +67,22 @@ module.exports = async function handler(req, res) {
       // Extract category (using "Category" instead of "Tags")
       const tags = properties.Category?.multi_select?.map((tag) => tag.name) || [];
 
-      // Extract image URL (if exists)
-      const imageUrl = properties['Image URL']?.url || '';
+      // Extract image URL from Screenshot property (Files & media type)
+      let imageUrl = '';
+      if (properties.Screenshot?.files && properties.Screenshot.files.length > 0) {
+        const file = properties.Screenshot.files[0];
+        // Check if it's an external file or uploaded file
+        if (file.type === 'external') {
+          imageUrl = file.external?.url || '';
+        } else if (file.type === 'file') {
+          imageUrl = file.file?.url || '';
+        }
+      }
+
+      // Also check for "Image URL" property as fallback (text/URL field)
+      if (!imageUrl && properties['Image URL']?.url) {
+        imageUrl = properties['Image URL'].url;
+      }
 
       // Extract project URL
       const projectUrl = properties['Project URL']?.url || '';
@@ -95,8 +109,8 @@ module.exports = async function handler(req, res) {
     console.error('Error name:', error.name);
     console.error('Error message:', error.message);
     console.error('Error code:', error.code);
-    
-    res.status(500).json({ 
+
+    res.status(500).json({
       error: 'Failed to fetch portfolio projects',
       message: error.message,
       details: process.env.NODE_ENV === 'development' ? error.stack : 'Check server logs for details'
