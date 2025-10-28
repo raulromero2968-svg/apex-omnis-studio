@@ -19,7 +19,6 @@ module.exports = async (req, res) => {
     });
 
     const projects = response.results.map((page) => {
-      // Extract properties
       const properties = page.properties;
       
       // Get title
@@ -42,10 +41,16 @@ module.exports = async (req, res) => {
       const projectUrl = properties['Project URL']?.url || '';
       const documentation = properties.Documentation?.url || '';
       
+      // NEW: Get "How It Works" explanation
+      const howItWorks = properties['How It Works']?.rich_text?.[0]?.plain_text || '';
+      
+      // NEW: Get Demo URL for iframe embedding
+      const demoUrl = properties['Demo URL']?.url || '';
+      
       // Get screenshots (array of images)
       const screenshots = properties.Screenshots?.files || [];
       
-      // First image is thumbnail, rest are detail images
+      // First image is thumbnail
       const thumbnailImage = screenshots[0]?.file?.url || screenshots[0]?.external?.url || '';
       const detailImages = screenshots.map(img => img.file?.url || img.external?.url || '').filter(Boolean);
       
@@ -65,6 +70,8 @@ module.exports = async (req, res) => {
         liveDemo,
         projectUrl,
         documentation,
+        howItWorks,
+        demoUrl,
         imageUrl: thumbnailImage,
         detailImages,
         slug,
