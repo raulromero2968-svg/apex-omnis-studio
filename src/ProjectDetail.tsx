@@ -16,7 +16,6 @@ interface Project {
   documentation: string;
   imageUrl: string;
   detailImages: string[];
-  // New fields for better showcase
   howItWorks?: string;
   demoUrl?: string;
 }
@@ -48,6 +47,11 @@ export default function ProjectDetail() {
     }
     fetchProject();
   }, [slug]);
+
+  // Helper function to check if URL is a video/GIF
+  const isAnimatedMedia = (url: string) => {
+    return url.match(/\.(gif|mp4|webm|mov)$/i);
+  };
 
   if (loading) {
     return (
@@ -105,8 +109,28 @@ export default function ProjectDetail() {
               <span className="text-gradient">Apex Omnis Studio</span>
             </div>
             <div className="nav-links">
-              <button onClick={() => navigate('/')} className="btn-secondary">
-                ← Back to Portfolio
+              <button 
+                onClick={() => navigate('/')} 
+                style={{
+                  padding: '0.5rem 1.5rem',
+                  background: '#22d3ee',
+                  color: '#000',
+                  border: 'none',
+                  borderRadius: '0.5rem',
+                  fontWeight: '600',
+                  cursor: 'pointer',
+                  transition: 'all 0.3s ease'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = '#06b6d4';
+                  e.currentTarget.style.transform = 'translateY(-2px)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = '#22d3ee';
+                  e.currentTarget.style.transform = 'translateY(0)';
+                }}
+              >
+                ← Back to Home
               </button>
             </div>
           </div>
@@ -197,7 +221,7 @@ export default function ProjectDetail() {
                 <div style={{ 
                   padding: '2rem',
                   background: 'rgba(17, 24, 39, 0.5)',
-                  border: '1px solid rgba(55, 65, 81, 0.5)',
+                  border: '1px solid rgba(34, 211, 238, 0.3)',
                   borderRadius: '0.75rem',
                   marginBottom: '2rem'
                 }}>
@@ -211,7 +235,7 @@ export default function ProjectDetail() {
                   </h3>
                   <p style={{ 
                     color: '#d1d5db', 
-                    lineHeight: '1.7',
+                    lineHeight: '1.8',
                     fontSize: '1rem'
                   }}>
                     {project.howItWorks}
@@ -219,17 +243,25 @@ export default function ProjectDetail() {
                 </div>
               )}
 
-              {/* Tech Stack - As Integration Story */}
+              {/* Tech Stack - Plain English Explanation */}
               {project.techStack && project.techStack.length > 0 && (
                 <div>
                   <h3 style={{ 
                     fontSize: '1.25rem', 
                     fontWeight: '600', 
-                    marginBottom: '1rem', 
+                    marginBottom: '0.5rem', 
                     color: 'white' 
                   }}>
                     Technology Integration
                   </h3>
+                  <p style={{
+                    color: '#9ca3af',
+                    fontSize: '0.875rem',
+                    marginBottom: '1rem',
+                    lineHeight: '1.6'
+                  }}>
+                    This system uses the following technologies working together seamlessly:
+                  </p>
                   <div style={{ 
                     display: 'flex', 
                     gap: '0.75rem', 
@@ -256,19 +288,29 @@ export default function ProjectDetail() {
               )}
             </div>
 
-            {/* RIGHT SIDE - Interactive Demo or Hero Image */}
+            {/* RIGHT SIDE - Interactive Demo or Animated Media */}
             <div>
               {project.demoUrl ? (
                 // Interactive Demo (iframe)
                 <div style={{
                   position: 'relative',
-                  paddingBottom: '75%', // 4:3 aspect ratio
+                  paddingBottom: '75%',
                   height: 0,
                   overflow: 'hidden',
                   borderRadius: '0.75rem',
                   border: '1px solid rgba(34, 211, 238, 0.3)',
-                  boxShadow: '0 20px 60px rgba(34, 211, 238, 0.2)'
-                }}>
+                  boxShadow: '0 20px 60px rgba(34, 211, 238, 0.2)',
+                  transition: 'all 0.3s ease'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = 'translateY(-8px)';
+                  e.currentTarget.style.boxShadow = '0 30px 80px rgba(34, 211, 238, 0.4)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'translateY(0)';
+                  e.currentTarget.style.boxShadow = '0 20px 60px rgba(34, 211, 238, 0.2)';
+                }}
+                >
                   <iframe
                     src={project.demoUrl}
                     style={{
@@ -283,21 +325,80 @@ export default function ProjectDetail() {
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   />
                 </div>
-              ) : project.imageUrl ? (
-                // Hero Image
+              ) : project.imageUrl && isAnimatedMedia(project.imageUrl) ? (
+                // Animated GIF or Video
                 <div style={{
                   borderRadius: '0.75rem',
                   overflow: 'hidden',
                   border: '1px solid rgba(34, 211, 238, 0.3)',
-                  boxShadow: '0 20px 60px rgba(34, 211, 238, 0.2)'
-                }}>
+                  boxShadow: '0 20px 60px rgba(34, 211, 238, 0.2)',
+                  transition: 'all 0.3s ease'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = 'translateY(-8px) scale(1.02)';
+                  e.currentTarget.style.boxShadow = '0 30px 80px rgba(34, 211, 238, 0.4)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'translateY(0) scale(1)';
+                  e.currentTarget.style.boxShadow = '0 20px 60px rgba(34, 211, 238, 0.2)';
+                }}
+                >
+                  {project.imageUrl.match(/\.(mp4|webm|mov)$/i) ? (
+                    <video
+                      src={project.imageUrl}
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                      style={{
+                        width: '100%',
+                        height: 'auto',
+                        display: 'block'
+                      }}
+                    />
+                  ) : (
+                    <img
+                      src={project.imageUrl}
+                      alt={project.title}
+                      style={{
+                        width: '100%',
+                        height: 'auto',
+                        display: 'block'
+                      }}
+                    />
+                  )}
+                </div>
+              ) : project.imageUrl ? (
+                // Static Image with CSS Animations
+                <div style={{
+                  borderRadius: '0.75rem',
+                  overflow: 'hidden',
+                  border: '1px solid rgba(34, 211, 238, 0.3)',
+                  boxShadow: '0 20px 60px rgba(34, 211, 238, 0.2)',
+                  transition: 'all 0.3s ease',
+                  position: 'relative'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = 'translateY(-8px) scale(1.02)';
+                  e.currentTarget.style.boxShadow = '0 30px 80px rgba(34, 211, 238, 0.4)';
+                  const img = e.currentTarget.querySelector('img');
+                  if (img) img.style.transform = 'scale(1.05)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'translateY(0) scale(1)';
+                  e.currentTarget.style.boxShadow = '0 20px 60px rgba(34, 211, 238, 0.2)';
+                  const img = e.currentTarget.querySelector('img');
+                  if (img) img.style.transform = 'scale(1)';
+                }}
+                >
                   <img
                     src={project.imageUrl}
                     alt={project.title}
                     style={{
                       width: '100%',
                       height: 'auto',
-                      display: 'block'
+                      display: 'block',
+                      transition: 'transform 0.3s ease'
                     }}
                   />
                 </div>
@@ -307,18 +408,20 @@ export default function ProjectDetail() {
         </div>
       </section>
 
-      {/* Additional Screenshots Gallery */}
+      {/* Project Gallery */}
       {project.detailImages && project.detailImages.length > 1 && (
         <section className="section" style={{ paddingTop: '0', paddingBottom: '60px' }}>
           <div className="container">
             <h2 style={{ 
-              fontSize: '2rem', 
+              fontSize: '2.5rem', 
               fontWeight: 'bold', 
-              marginBottom: '2rem',
+              marginBottom: '3rem',
               textAlign: 'center',
-              color: 'white'
+              background: 'linear-gradient(135deg, #22d3ee, #06b6d4)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent'
             }}>
-              More Screenshots
+              Project Gallery
             </h2>
             <div style={{ 
               display: 'grid', 
@@ -331,27 +434,65 @@ export default function ProjectDetail() {
                   style={{
                     borderRadius: '0.75rem',
                     overflow: 'hidden',
-                    border: '1px solid rgba(55, 65, 81, 0.5)',
-                    transition: 'transform 0.3s ease, box-shadow 0.3s ease'
+                    border: '1px solid rgba(34, 211, 238, 0.3)',
+                    boxShadow: '0 10px 30px rgba(0, 0, 0, 0.3)',
+                    transition: 'all 0.3s ease',
+                    position: 'relative'
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.transform = 'translateY(-8px)';
-                    e.currentTarget.style.boxShadow = '0 20px 40px rgba(34, 211, 238, 0.2)';
+                    e.currentTarget.style.transform = 'translateY(-12px)';
+                    e.currentTarget.style.boxShadow = '0 20px 50px rgba(34, 211, 238, 0.3)';
+                    e.currentTarget.style.borderColor = 'rgba(34, 211, 238, 0.6)';
+                    const img = e.currentTarget.querySelector('img, video');
+                    if (img) (img as HTMLElement).style.transform = 'scale(1.05)';
                   }}
                   onMouseLeave={(e) => {
                     e.currentTarget.style.transform = 'translateY(0)';
-                    e.currentTarget.style.boxShadow = 'none';
+                    e.currentTarget.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.3)';
+                    e.currentTarget.style.borderColor = 'rgba(34, 211, 238, 0.3)';
+                    const img = e.currentTarget.querySelector('img, video');
+                    if (img) (img as HTMLElement).style.transform = 'scale(1)';
                   }}
                 >
-                  <img
-                    src={image}
-                    alt={`${project.title} - Screenshot ${index + 2}`}
-                    style={{
-                      width: '100%',
-                      height: 'auto',
-                      display: 'block'
-                    }}
-                  />
+                  {isAnimatedMedia(image) ? (
+                    image.match(/\.(mp4|webm|mov)$/i) ? (
+                      <video
+                        src={image}
+                        autoPlay
+                        loop
+                        muted
+                        playsInline
+                        style={{
+                          width: '100%',
+                          height: 'auto',
+                          display: 'block',
+                          transition: 'transform 0.3s ease'
+                        }}
+                      />
+                    ) : (
+                      <img
+                        src={image}
+                        alt={`${project.title} - Gallery ${index + 2}`}
+                        style={{
+                          width: '100%',
+                          height: 'auto',
+                          display: 'block',
+                          transition: 'transform 0.3s ease'
+                        }}
+                      />
+                    )
+                  ) : (
+                    <img
+                      src={image}
+                      alt={`${project.title} - Gallery ${index + 2}`}
+                      style={{
+                        width: '100%',
+                        height: 'auto',
+                        display: 'block',
+                        transition: 'transform 0.3s ease'
+                      }}
+                    />
+                  )}
                 </div>
               ))}
             </div>
