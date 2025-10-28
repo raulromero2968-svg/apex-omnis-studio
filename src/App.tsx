@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom'
 import './index.css'
 import './App.css'
+import DataDashboardDemo from './demos/DataDashboardDemo';
 import { Starfield } from './Starfield'
 import { DiamondLogo } from './DiamondLogo'
 import { CustomCursor } from './CustomCursor'
@@ -282,6 +283,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/project/:slug" element={<ProjectDetail />} />
+        <Route path="/demo/data-dashboard" element={<DataDashboardDemo />} />
       </Routes>
     </Router>
   )
