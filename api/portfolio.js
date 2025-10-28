@@ -65,7 +65,7 @@ module.exports = async (req, res) => {
         liveDemo,
         projectUrl,
         documentation,
-        thumbnailImage,
+        imageUrl: thumbnailImage,
         detailImages,
         slug,
       };
