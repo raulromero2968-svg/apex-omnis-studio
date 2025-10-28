@@ -23,7 +23,7 @@ module.exports = async (req, res) => {
       const properties = page.properties;
       
       // Get title
-      const title = properties.Name?.title?.[0]?.plain_text || 'Untitled Project';
+      const title = properties['Project Name']?.title?.[0]?.plain_text || 'Untitled Project';
       
       // Get description
       const description = properties.Description?.rich_text?.[0]?.plain_text || '';
