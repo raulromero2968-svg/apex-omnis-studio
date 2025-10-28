@@ -55,12 +55,6 @@ function AnimatedNumber({ value, prefix = '', suffix = '', duration = 2000 }: { 
 }
 
 export default function DataDashboardDemo() {
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    // Trigger animations after component mounts
-    setTimeout(() => setIsVisible(true), 100);
-  }, []);
 
   // Business Intelligence Bar Chart Data
   const barData = {
