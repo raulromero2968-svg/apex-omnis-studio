@@ -44,8 +44,8 @@ module.exports = async (req, res) => {
       // NEW: Get "How It Works" explanation
       const howItWorks = properties['How It Works']?.rich_text?.[0]?.plain_text || '';
       
-      // NEW: Get Demo URL for iframe embedding
-      const demoUrl = properties['Demo URL']?.url || '';
+     // NEW: Get Demo URL for iframe embedding
+const demoUrl = properties['Live Demo URL']?.url || '';
       
       // Get screenshots (array of images)
       const screenshots = properties.Screenshots?.files || [];
