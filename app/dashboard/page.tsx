@@ -1,3 +1,5 @@
+'use client';
+
 import { useEffect, useState } from 'react';
 import {
   Chart as ChartJS,
@@ -107,7 +109,7 @@ export default function CockpitPage() {
         },
         ticks: {
           color: '#9ca3af',
-          callback: (value: any) => value + 'k',
+          callback: (value: string | number) => value + 'k',
         },
       },
     },
@@ -154,7 +156,7 @@ export default function CockpitPage() {
         padding: 12,
         displayColors: false,
         callbacks: {
-          label: (context: any) => context.parsed.y + '%',
+          label: (context: { parsed: { y: number } }) => context.parsed.y + '%',
         },
       },
     },
@@ -173,7 +175,7 @@ export default function CockpitPage() {
         },
         ticks: {
           color: '#9ca3af',
-          callback: (value: any) => value + '%',
+          callback: (value: string | number) => value + '%',
         },
       },
     },
