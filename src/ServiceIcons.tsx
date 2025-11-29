@@ -103,9 +103,9 @@ export function FullStackIcon() {
           <animate attributeName="y" values="40;38;40" dur="2s" repeatCount="indefinite" begin="0.6s" />
         </rect>
         {/* Code brackets */}
-        <text x="20" y="20" fill="#00B4D8" fontSize="10" fontFamily="monospace">&lt;/&gt;</text>
-        <text x="20" y="34" fill="#00FF88" fontSize="10" fontFamily="monospace">{ }</text>
-        <text x="20" y="48" fill="#7B2CBF" fontSize="10" fontFamily="monospace">[ ]</text>
+        <text x="20" y="20" fill="#00B4D8" fontSize="10" fontFamily="sans-serif">&lt;/&gt;</text>
+        <text x="20" y="34" fill="#00FF88" fontSize="10" fontFamily="sans-serif">{ }</text>
+        <text x="20" y="48" fill="#7B2CBF" fontSize="10" fontFamily="sans-serif">[ ]</text>
       </g>
     </svg>
   )
